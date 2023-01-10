@@ -1,24 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import { useDispatch, useSelector } from "react-redux";
+import Home from "./pages/Home";
+import Modal from "./components/Modal";
+
+
+import { fetchUsers } from "./store/users";
 
 function App() {
+  const dispatch = useDispatch();
+  dispatch(fetchUsers());
+
+  const { open: isModelOpen, data: modelData } = useSelector((state) => state.modal);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      
+      {isModelOpen && <Modal name={isModelOpen} data={modelData} />}
+      <Home />
+    </>
   );
 }
 
